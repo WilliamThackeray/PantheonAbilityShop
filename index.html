@@ -1,1 +1,295 @@
-<h1>Pantheon Character Sheet</h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pantheon Character Sheet</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        font-family: "Roboto", sans-serif;
+      }
+      header {
+        padding: 10px;
+        text-align: center;
+      }
+      main {
+        display: flex;
+        gap: 20px;
+      }
+      #intoSection {
+        width: 25%;
+      }
+      #info {
+        list-style-type: none;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      #info li, #info input, #info textarea, #info select {
+        width: 100%;
+      }
+      .skillRow {
+        display: flex;
+        justify-content: center;
+      }
+      .skillBlock {
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid #ccc;
+        padding: 10px;
+      }
+      .skillBlock select {
+        font-size: 25px;
+        height: 50px;
+        width: 50%;
+        margin: 0;
+        padding: 0;
+      }
+      .skillBlock option {
+        padding: 0;
+        margin: 0;
+      }
+      .skillSelect {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      #defenseBonus {
+        display: flex;
+        justify-content: space-around;
+        gap: 2rem;
+      }
+      #physicalSkills, #mentalSkills {
+        text-align: center;
+      }
+      #physicalSkills h3, #mentalSkills h3 {
+        text-align: center;
+        margin:  1rem 0 0 0;
+      }
+      #statSection input {
+        padding: 1rem;
+        font-size: 20px;
+      }
+      #hpdp {
+        display: flex;
+        gap: 3rem;
+      }
+      #middle {
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+  </head>
+  <body>
+    <header>Pantheon Character Sheet v0.0</header>
+    <main>
+      <section id="intoSection">
+        <ul id="info">
+          <li>Name: <input type="text"></input></li>
+          <li>Pantheon: <select>
+            <option value="None">Choose a Pantheon</option>
+            <option value="egypt">Egyptian</option>
+            <option value="meso">Mesopotanian</option>
+            <option value="norse">Norse</option>
+            <option value="chinese">Chinese</option>
+            <option value="aztec">Aztec</option>
+            <option value="greek">Greek</option>
+          </select></li>
+          <li>Favor: <input type="number" min="0" max="10"></input></li>
+          <li>Languages: <textarea></textarea></li>
+          <li>
+            Abilities: 
+            <button type="button"> + </button>
+            <button type="button"> - </button>
+            <ul id="abilitiesList"></ul>
+          </li>
+          <!-- change ABILITIES to be an UL with an add button which adds the abilities to the list -->
+          <!-- make sure each li has a remove button attatched to remove it from the list -->
+        </ul>
+      </section>
+      <section id="middle">
+        <section id="statSection">
+          <div id="hpdp">
+            <div>
+              <h3>Hit Points</h3>
+              <!-- Current Hit Points -->
+              <div>Current: <input type="number" min="0" max="100"></input>/<input type="number" min="0" max="100"></input></div> 
+            </div>
+            <div>
+              <h3>Divinity Points</h3>
+              <div>Current: <input type="number" min="0" max="100"></input>/<input type="number" min="0" max="100"></input></div> <!-- Current Hit Points -->
+            </div>
+            <div id="defenseBonus">
+              <div>
+                <h3>Dodge Bonus</h3>
+                <input type="number" max="10" min="0"></div>
+              <div>
+                <h3>Block Bonus</h3>
+                <input type="number" max="10" min="0"></div>
+            </div>
+          </div>
+          <div id="physicalSkills">
+            <h3>Physical Skills</h3>
+            <div class="skillRow"> <!-- Skill Row -->
+              <div class="skillBlock"> <!-- Skill Block -->
+                <div>Grace</div> <!-- Skill Name -->
+                <div class="skillSelect"><select name="diceValue" id="graceDiceValue">
+                  <option>1d6</option>
+                  <option>1d6 + 1d4</option>
+                  <option>2d6</option>
+                  <option>2d6 + 1d4</option>
+                  <option>3d6</option>
+                  <option>3d6 + 1d4</option>
+                  <option>4d6</option>
+                  <option>4d6 + 1d4</option>
+                  <option>5d6</option>
+                </select></div> <!-- Skill Dice Value -->
+                <div>Proficiency: <input type="checkbox"/> 1d4</div> <!-- Skill Proficiency -->
+              </div>
+              <div class="skillBlock"> <!-- Skill Block -->
+                <div>Precision</div> <!-- Skill Name -->
+                <div class="skillSelect"><select name="diceValue" id="precisionDiceValue">
+                  <option>1d6</option>
+                  <option>1d6 + 1d4</option>
+                  <option>2d6</option>
+                  <option>2d6 + 1d4</option>
+                  <option>3d6</option>
+                  <option>3d6 + 1d4</option>
+                  <option>4d6</option>
+                  <option>4d6 + 1d4</option>
+                  <option>5d6</option>
+                </select></div> <!-- Skill Dice Value -->
+                <div>Proficiency: <input type="checkbox"/> 1d4</div> <!-- Skill Proficiency -->
+              </div>
+              <div class="skillBlock"> <!-- Skill Block -->
+                <div>Might</div> <!-- Skill Name -->
+                <div class="skillSelect"><select name="diceValue" id="mightDiceValue">
+                  <option>1d6</option>
+                  <option>1d6 + 1d4</option>
+                  <option>2d6</option>
+                  <option>2d6 + 1d4</option>
+                  <option>3d6</option>
+                  <option>3d6 + 1d4</option>
+                  <option>4d6</option>
+                  <option>4d6 + 1d4</option>
+                  <option>5d6</option>
+                </select></div> <!-- Skill Dice Value -->
+                <div>Proficiency: <input type="checkbox"/> 1d4</div> <!-- Skill Proficiency -->
+              </div>
+              <div class="skillBlock"> <!-- Skill Block -->
+                <div>Fortitude</div> <!-- Skill Name -->
+                <div class="skillSelect"><select name="diceValue" id="fortitudeDiceValue">
+                  <option>1d6</option>
+                  <option>1d6 + 1d4</option>
+                  <option>2d6</option>
+                  <option>2d6 + 1d4</option>
+                  <option>3d6</option>
+                  <option>3d6 + 1d4</option>
+                  <option>4d6</option>
+                  <option>4d6 + 1d4</option>
+                  <option>5d6</option>
+                </select></div> <!-- Skill Dice Value -->
+                <div>Proficiency: <input type="checkbox"/> 1d4</div> <!-- Skill Proficiency -->
+              </div>
+            </div>
+          </div>
+          <div id="mentalSkills">
+            <h3>Mental Skills</h3>
+            <div class="skillRow"> <!-- Skill Row -->
+              <div class="skillBlock"> <!-- Skill Block -->
+                <div>Grace</div> <!-- Skill Name -->
+                <div class="skillSelect"><select name="diceValue" id="graceDiceValue">
+                  <option>1d6</option>
+                  <option>1d6 + 1d4</option>
+                  <option>2d6</option>
+                  <option>2d6 + 1d4</option>
+                  <option>3d6</option>
+                  <option>3d6 + 1d4</option>
+                  <option>4d6</option>
+                  <option>4d6 + 1d4</option>
+                  <option>5d6</option>
+                </select></div> <!-- Skill Dice Value -->
+                <div>Proficiency: <input type="checkbox"/> 1d4</div> <!-- Skill Proficiency -->
+              </div>
+              <div class="skillBlock"> <!-- Skill Block -->
+                <div>Precision</div> <!-- Skill Name -->
+                <div class="skillSelect"><select name="diceValue" id="precisionDiceValue">
+                  <option>1d6</option>
+                  <option>1d6 + 1d4</option>
+                  <option>2d6</option>
+                  <option>2d6 + 1d4</option>
+                  <option>3d6</option>
+                  <option>3d6 + 1d4</option>
+                  <option>4d6</option>
+                  <option>4d6 + 1d4</option>
+                  <option>5d6</option>
+                </select></div> <!-- Skill Dice Value -->
+                <div>Proficiency: <input type="checkbox"/> 1d4</div> <!-- Skill Proficiency -->
+              </div>
+              <div class="skillBlock"> <!-- Skill Block -->
+                <div>Might</div> <!-- Skill Name -->
+                <div class="skillSelect"><select name="diceValue" id="mightDiceValue">
+                  <option>1d6</option>
+                  <option>1d6 + 1d4</option>
+                  <option>2d6</option>
+                  <option>2d6 + 1d4</option>
+                  <option>3d6</option>
+                  <option>3d6 + 1d4</option>
+                  <option>4d6</option>
+                  <option>4d6 + 1d4</option>
+                  <option>5d6</option>
+                </select></div> <!-- Skill Dice Value -->
+                <div>Proficiency: <input type="checkbox"/> 1d4</div> <!-- Skill Proficiency -->
+              </div>
+              <div class="skillBlock"> <!-- Skill Block -->
+                <div>Fortitude</div> <!-- Skill Name -->
+                <div class="skillSelect"><select name="diceValue" id="fortitudeDiceValue">
+                  <option>1d6</option>
+                  <option>1d6 + 1d4</option>
+                  <option>2d6</option>
+                  <option>2d6 + 1d4</option>
+                  <option>3d6</option>
+                  <option>3d6 + 1d4</option>
+                  <option>4d6</option>
+                  <option>4d6 + 1d4</option>
+                  <option>5d6</option>
+                </select></div> <!-- Skill Dice Value -->
+                <div>Proficiency: <input type="checkbox"/> 1d4</div> <!-- Skill Proficiency -->
+              </div>
+            </div>
+          </div>
+  
+        </section>
+        <section id="inventory">
+          <div id="inventorySelectDiv"><p id="equipmentBtn">Equipment</p><p id="backpackBtn">Backpack</p></div>
+          <div id="equipment">
+            <ul>
+              <li>MH: <span></span></li>
+              <li>OF: <span></span></li>
+              <li>B1: <span></span></li>
+              <li>B2: <span></span></li>
+              <li>B3: <span></span></li>
+              <li>BD1: <span></span></li>
+              <li>BD2: <span></span></li>
+            </ul>
+          </div>
+          <div id="backpack">
+            <button type="button"> + </button>
+  
+          </div>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
