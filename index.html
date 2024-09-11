@@ -89,6 +89,33 @@
         display: flex;
         flex-direction: column;
       }
+      #inventorySelectDiv {
+        display: flex;
+        gap: 1rem;
+        border: #ccc 2px solid;
+        border-radius: 10px;
+        margin: 0;
+        padding: 0;
+      }
+      #inventorySelectDiv p {
+        padding: 1rem;
+        margin: 0;
+      }
+      .selected {
+        background-color: #1f1f1f;
+        color: white;
+      }
+      #backpack {
+        display: none;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        background-color: #f2f2f2;
+        border-radius: 10px;
+        border: #1f1f1f 1px solid;
+      }
     </style>
   </head>
   <body>
@@ -272,7 +299,7 @@
   
         </section>
         <section id="inventory">
-          <div id="inventorySelectDiv"><p id="equipmentBtn">Equipment</p><p id="backpackBtn">Backpack</p></div>
+          <div id="inventorySelectDiv"><p id="equipmentBtn" class="selected">Equipment</p><p id="backpackBtn">Backpack</p></div>
           <div id="equipment">
             <ul>
               <li>MH: <span></span></li>
@@ -285,11 +312,76 @@
             </ul>
           </div>
           <div id="backpack">
-            <button type="button"> + </button>
-  
+            <div id="newItem">
+              <!-- name, slot, skill, strike, effect, description -->
+              <input type="text" placeholder="Name" id="newItemName">
+              <input type="text" placeholder="Slot" id="newItemSlot">
+              <input type="text" placeholder="Skill" id="newItemSkill">
+              <input type="text" placeholder="Strike" id="newItemStrike">
+              <input type="text" placeholder="Effect" id="newItemEffect">
+              <input type="text" placeholder="Description" id="newItemDescription">
+              <button type="button" id="addItemBtn"> + </button>
+            </div>
+            <ul id="itemList"></ul>
+            <!-- make this a table -->
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Slot</th>
+                  <th>Skill</th>
+                  <th>Strike</th>
+                  <th>Effect</th>
+                  <th>Description</th>
+                  <th>Del</th>
+                </tr>
+              </thead>
+              <tbody id="backpackTableBody"></tbody>
+            </table>
           </div>
         </section>
       </section>
     </main>
+    <script>
+      let equipmentBtn = document.getElementById('equipmentBtn');
+      let backpackBtn = document.getElementById('backpackBtn');
+
+      equipmentBtn.addEventListener('click', () => {
+        equipmentBtn.classList.add('selected');
+        backpackBtn.classList.remove('selected');
+        document.getElementById('equipment').style.display = 'block';
+        document.getElementById('backpack').style.display = 'none';
+      });
+
+      backpackBtn.addEventListener('click', () => {
+        equipmentBtn.classList.remove('selected');
+        backpackBtn.classList.add('selected');
+        document.getElementById('equipment').style.display = 'none';
+        document.getElementById('backpack').style.display = 'block';
+      })
+
+      let addItemBtn = document.getElementById('addItemBtn');
+      addItemBtn.addEventListener('click', () => {
+        let row = document.createElement('tr');
+        let newItemName = document.getElementById('newItemName').value;
+        let newItemSlot = document.getElementById('newItemSlot').value;
+        let newItemSkill = document.getElementById('newItemSkill').value;
+        let newItemStrike = document.getElementById('newItemStrike').value;
+        let newItemEffect = document.getElementById('newItemEffect').value;
+        let newItemDescription = document.getElementById('newItemDescription').value;
+        row.innerHTML = `<td>${newItemName}</td><td>${newItemSlot}</td><td>${newItemSkill}</td><td>${newItemStrike}</td><td>${newItemEffect}</td><td>${newItemDescription}</td>`;
+
+        // create a delete button for the item
+        let deleteBtn = document.createElement('button');
+        deleteBtn.textContent = '-';
+        row.appendChild(deleteBtn);
+        deleteBtn.addEventListener('click', () => {
+          document.getElementById('backpackTableBody').removeChild(row)
+        })
+
+        document.getElementById('backpackTableBody').appendChild(row)
+      }
+    )
+    </script>
   </body>
 </html>
