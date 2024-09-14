@@ -116,6 +116,9 @@
         border-radius: 10px;
         border: #1f1f1f 1px solid;
       }
+      #newAbility {
+        display: flex;
+      }
     </style>
   </head>
   <body>
@@ -137,8 +140,13 @@
           <li>Languages: <textarea></textarea></li>
           <li>
             Abilities: 
-            <button type="button"> + </button>
-            <button type="button"> - </button>
+            <button type="button" id="addNewAbility"> + </button>
+            <div id="newAbility">
+              <label for="abilityName">Name:</label>
+              <input type="text" id="abilityName" name="abilityName">
+              <label for="abilityDesc">Description:</label>
+              <input type="text" id="abilityDesc" name="abilityDesc"></input>
+            </div>
             <ul id="abilitiesList"></ul>
           </li>
           <!-- change ABILITIES to be an UL with an add button which adds the abilities to the list -->
@@ -159,11 +167,13 @@
             </div>
             <div id="defenseBonus">
               <div>
-                <h3>Dodge Bonus</h3>
-                <input type="number" max="10" min="0"></div>
+                <h3>Dodge (Grace)</h3>
+                <h4>0</h4>
+              </div>
               <div>
-                <h3>Block Bonus</h3>
-                <input type="number" max="10" min="0"></div>
+                <h3>Block (Fortitude)</h3>
+                <h4>0</h4>
+              </div>
             </div>
           </div>
           <div id="physicalSkills">
@@ -314,11 +324,49 @@
           <div id="backpack">
             <div id="newItem">
               <!-- name, slot, skill, strike, effect, description -->
+              <!-- slot, skill, strike, effect, should all be dropdowns -->
               <input type="text" placeholder="Name" id="newItemName">
-              <input type="text" placeholder="Slot" id="newItemSlot">
-              <input type="text" placeholder="Skill" id="newItemSkill">
-              <input type="text" placeholder="Strike" id="newItemStrike">
-              <input type="text" placeholder="Effect" id="newItemEffect">
+              <select name="slot" id="newItemSlot">
+                <option value="none">Slot</option>
+                <option value="mh">Mainhand</option>
+                <option value="oh">Offhand</option>
+                <option value="b1">Belt 1</option>
+                <option value="b2">Belt 2</option>
+                <option value="b3">Belt 3</option>
+                <option value="bd1">Body 1</option>
+                <option value="bd2">Body 2</option>
+              </select>
+              <select name="skill" id="newItemSkill">
+                <option value="none">Skill</option>
+                <option value="pre">Precision</option>
+                <option value="gra">Grace</option>
+                <option value="mig">Might</option>
+                <option value="for">Fortitude</option>
+                <option value="mag">Magic</option>
+                <option value="int">Intellect</option>
+                <option value="cha">Charm</option>
+                <option value="leg">Legend</option>
+              </select>
+              <select name="strike" id="newItemStrike">
+                <option value="none">Strike</option>
+                <option value="na">N/A</option>
+                <option value="1">+1</option>
+                <option value="2">+2</option>
+                <option value="3">+3</option>
+                <option value="4">+4</option>
+                <option value="5">+5</option>
+              </select>
+              <select name="effect" id="newItemEffect">
+                <option value="none">Effect</option>
+                <option value="dmg:+1">+1 damage</option>
+                <option value="dmg:+2">+2 damage</option>
+                <option value="dmg:+3">+3 damage</option>
+                <option value="gra:+1">+1 Grace</option>
+                <option value="gra:+2;for:-1">+2 Grace, -1 Fortitude</option>
+                <option value="for:+1">+1 Fortitude</option>
+                <option value="for:+2;gra:-1">+2 Fortitude, -1 Grace</option>
+                <option value="other">Other (see description)</option>
+              </select>
               <input type="text" placeholder="Description" id="newItemDescription">
               <button type="button" id="addItemBtn"> + </button>
             </div>
@@ -359,6 +407,26 @@
         document.getElementById('equipment').style.display = 'none';
         document.getElementById('backpack').style.display = 'block';
       })
+
+      let addAbilityBtn = document.getElementById('addNewAbility')
+      addAbilityBtn.addEventListener('click', () => {
+        let newAbility = document.createElement('li');
+        newAbility.textContent = document.getElementById('abilityName').value + ': ' + document.getElementById('abilityDesc').value;
+
+        document.getElementById('abilityName').value = ''
+        document.getElementById('abilityDesc').value = ''
+
+        // create a delete button for the ability
+        let deleteBtn = document.createElement('button');
+        deleteBtn.textContent = '-';
+        newAbility.appendChild(deleteBtn);
+        deleteBtn.addEventListener('click', () => {
+          document.getElementById('abilitiesList').removeChild(newAbility)
+        })
+
+        document.getElementById('abilitiesList').appendChild(newAbility);
+      })
+
 
       let addItemBtn = document.getElementById('addItemBtn');
       addItemBtn.addEventListener('click', () => {
